@@ -1,5 +1,6 @@
 import { Add, Remove } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -10,6 +11,7 @@ import Newsletter from '../components/Newsletter';
 
 import { publicRequest } from '../requestMethods';
 import { mobile } from '../responsive';
+import { addProduct } from '../redux/cartRedux';
 
 const Container = styled.div``;
 
@@ -127,6 +129,7 @@ export default function Product() {
   const [quantity, setQuantity] = useState(1);
   const [color, setColor] = useState('');
   const [size, setSize] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getProduct = async () => {
@@ -142,6 +145,10 @@ export default function Product() {
     } else {
       setQuantity((prev) => prev + 1);
     }
+  };
+
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity, color, size }));
   };
 
   return (
@@ -178,7 +185,7 @@ export default function Product() {
               <Amount>{quantity}</Amount>
               <Add onClick={() => handleQuantity('inc')} />
             </AmountContainer>
-            <Button>ADD TO CART</Button>
+            <Button onClick={handleClick}>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
       </Wrapper>
