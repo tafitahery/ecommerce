@@ -5,6 +5,7 @@ import { Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
 
 import { mobile } from '../responsive';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   height: 60px;
@@ -88,11 +89,13 @@ export default function Navbar() {
         <Right>
           <MenuItem>REGISTER</MenuItem>
           <MenuItem>SIGN IN</MenuItem>
-          <MenuItem>
-            <Badge badgeContent={quantity} color="primary">
-              <ShoppingCartOutlined />
-            </Badge>
-          </MenuItem>
+          <Link to="/cart">
+            <MenuItem>
+              <Badge badgeContent={quantity} color="primary">
+                <ShoppingCartOutlined />
+              </Badge>
+            </MenuItem>
+          </Link>
         </Right>
       </Wrapper>
     </Container>
